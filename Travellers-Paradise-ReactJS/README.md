@@ -1,10 +1,5 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Traveller's Paradise
-A simple Room Booking website using React JS and Spring Rest.
-For SMS OTP. Login to Firebase and get the API key and use it under FireBase.js.
-
-
 ## Available Scripts
 
 In the project directory, you can run:
