@@ -32,7 +32,8 @@ export default class Booknow extends Component {
         firstNameError: "",
         lastNameError: "",
         emailError: "",
-        phoneNumberError: ""        
+        phoneNumberError: "",
+        priceError: ""     
         
 }
     this.handleChangeEnd = this.handleChangeEnd.bind(this);
@@ -60,11 +61,20 @@ export default class Booknow extends Component {
 
     validate = () => {
         let isError = false;
+        const checkIn = this.state.checkIn    
+        const checkOut = this.state.checkOut
+        let checkinFormattedDate = moment(checkIn).format('MM-DD-YYYY')
+        let checkoutFormattedDate = moment(checkOut).format('MM-DD-YYYY')
+        const daysLeft = this.calculateDaysLeft(checkinFormattedDate, checkoutFormattedDate)
+        const { getRoom } = this.context;
+        const room = getRoom(this.state.slug);
+        const total = room.price * daysLeft;
         const errors = {
             firstNameError: "",
             lastNameError: "",
             emailError: "",
-            phoneNumberError: ""
+            phoneNumberError: "",
+             priceError: "",
         }
  
         if(!this.state.firstName) {
@@ -83,6 +93,11 @@ export default class Booknow extends Component {
        if(this.state.phoneNumber < 10){
            isError = true;
          errors.phoneNumberError ="Mobile number must cantain 10 digits";
+       }
+       if(total < 0){
+           isError = true;
+           errors.priceError = "Price Cannot be negative."
+
        }
        this.setState({
            ...this.state,
@@ -122,7 +137,8 @@ export default class Booknow extends Component {
                 email: "",
                 emailError: "",
                 phoneNumber: "",
-                phoneNumberError: ""
+                phoneNumberError: "",
+                priceError: ""
             }
             )
       
@@ -296,6 +312,7 @@ export default class Booknow extends Component {
   <div className="form-group" >
     <label id="lastName">Price</label>
     <input type="text" className="form-control" id="exampleInputPassword1" value={daysLeft*price}></input>
+     { <p className='text-danger'>{this.state.priceError}</p> }
   </div>
   </div>
   </div>
