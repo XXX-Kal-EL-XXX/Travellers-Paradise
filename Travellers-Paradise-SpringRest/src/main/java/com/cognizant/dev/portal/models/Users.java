@@ -50,7 +50,7 @@ public class Users {
 
 
 	/*@JsonManagedReference*/
-	@OneToMany (cascade = CascadeType.ALL,  orphanRemoval = true, fetch = FetchType.LAZY)
+	@OneToMany (mappedBy="user",cascade = CascadeType.ALL,  orphanRemoval = true, fetch = FetchType.LAZY)
 	Set<Booking> listOfBookings;
 
 	
